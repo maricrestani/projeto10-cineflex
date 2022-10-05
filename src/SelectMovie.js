@@ -1,28 +1,35 @@
 import React from 'react'
 import styled from 'styled-components'
 import DialM from './img/DialM.png'
+import MrN from './img/MrN.png'
 //import { useState } from "react"
 
-const movieName = 'Dial M for Murder'
+const movie1 = 'Dial M for Murder'
+const movie2 = 'Mr nobody'
 
 export default function SelectMovie() {
 
    return (
       <>
          <ContainerMovie>
-       <Movie><img src={DialM} alt={movieName} /></Movie>  
-       <Movie><img src={DialM} alt={movieName} /></Movie>  
-       <Movie><img src={DialM} alt={movieName} /></Movie>  
-       <Movie><img src={DialM} alt={movieName} /></Movie>  
-       <Movie><img src={DialM} alt={movieName} /></Movie>  
-       <Movie><img src={DialM} alt={movieName} /></Movie>  
+       <Movie><img src={DialM} alt={movie1} /></Movie>  
+       <Movie><img src={DialM} alt={movie1} /></Movie>  
+       <Movie><img src={MrN} alt={movie2} /></Movie>  
+       <Movie><img src={MrN} alt={movie2} /></Movie>  
+       <Movie><img src={DialM} alt={movie1} /></Movie> 
+       <Movie><img src={DialM} alt={movie1} /></Movie>   
+       <Movie><img src={MrN} alt={movie2} /></Movie>  
+       <Movie><img src={MrN} alt={movie2} /></Movie>  
+       <Movie><img src={DialM} alt={movie1} /></Movie>  
+       <Movie><img src={DialM} alt={movie1} /></Movie>  
+       <Movie><img src={MrN} alt={movie2} /></Movie>  
+       <Movie><img src={MrN} alt={movie2} /></Movie>  
+       
          </ContainerMovie>
       </>
    )
-
 }
 
-//@media (max-width: 500px) 
 
 const ContainerMovie = styled.div`
 

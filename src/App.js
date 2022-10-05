@@ -1,10 +1,12 @@
+//import { BrowseRouter, Routes, Route } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import React from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalStyle'
 import SelectMovie from './SelectMovie'
-import SelectTime from './SelectTime'
+import SelectSession from './SelectSession'
 import SelectSeat from './SelectSeat'
-import CloseOrder from './CloseOrder'
+import CompletedOrder from './CompletedOrder'
 //import { useState } from "react"
 
 export default function App() {
@@ -14,12 +16,12 @@ export default function App() {
             <GlobalStyle />
             <Header>CINEFLEX</Header>
             <Section><p>Selecione o horário</p></Section>
-            <SelectMovie />
-            <SelectTime />
-            <SelectSeat />
-            <CloseOrder />
-        </>
 
+            {/*<SelectMovie />*/}
+            {/*<SelectSession />*/}
+            <SelectSeat />
+            {/*<CompletedOrder />*/}
+        </>
     )
 }
 

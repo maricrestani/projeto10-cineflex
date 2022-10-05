@@ -3,23 +3,22 @@ import styled from 'styled-components'
 //import { useState } from "react"
 
 
-
 export default function SelectMovie() {
 
    return (
       <>
-         <ContainerMovie>
+         <ContainerSeat>
      
-         </ContainerMovie>
+         </ContainerSeat>
       </>
    )
 
 }
 
-//@media (max-width: 500px) 
 
 const ContainerMovie = styled.div`
 
+background-color: red;
 width: 100%;
 position: fixed;
 top: 177px;

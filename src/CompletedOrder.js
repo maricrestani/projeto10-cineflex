@@ -2,10 +2,10 @@ import React from 'react'
 //import styled from 'styled-components'
 //import { useState } from "react"
 
-export default function CloseOrder() {
+export default function CompletedOrder() {
 
   return (
-     <></>
+     <>lalalalla</>
   )
 
 }
