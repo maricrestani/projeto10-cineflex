@@ -3,10 +3,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalStyle'
-import SelectMovie from './SelectMovie'
-import SelectSession from './SelectSession'
+//import SelectMovie from './SelectMovie'
+//import SelectSession from './SelectSession'
 import SelectSeat from './SelectSeat'
-import CompletedOrder from './CompletedOrder'
+//import CompletedOrder from './CompletedOrder'
 //import { useState } from "react"
 
 export default function App() {
