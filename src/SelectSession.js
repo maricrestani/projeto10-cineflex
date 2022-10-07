@@ -1,20 +1,37 @@
+import axios from 'axios'
 import React from 'react'
 import styled from 'styled-components'
-//import { useState } from "react"
+import Session from './Session'
+import { useEffect } from 'react'
+import { useState } from "react"
 
 export default function SelectSession() {
 
+   const [sessions, setSessions] = useState([])
+ 
+
+   useEffect(() => {
+      const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/2/showtimes`)
+
+      promise.then((res) => {
+          setSessions(res.data.days)
+      })
+
+      promise.catch((err) => {
+          console.log(err.response.data)
+          alert(err.response.data)
+      })
+  }, [])
+
+if (sessions.lenght === 0){
+  return <div>Carregando...</div>
+}
+
    return (
       <>
+        <Section><p>Selecione o horário</p></Section>
          <ContainerSession>
-            <Session>
-               <p>Quinta-feira - 24/06/2021</p>
-               <div>
-                  <button>09:00</button>
-                  <button>15:00</button>
-               </div>
-            </Session>
-
+         {sessions.map((session) => <Session key={session.id} session={session} />)}
          </ContainerSession>
       </>
    )
@@ -31,36 +48,18 @@ justify-content: center;
 align-items: center;
 `
 
-const Session = styled.div`
+const Section = styled.div`
+
 width: 100%;
-margin: 0px auto 22px;
-
-
-div{
+height:110px;
+position: fixed;
+top: 67px;
 display: flex;
-}
-
-button{
-margin-top: 22px;
-margin-left: 22px;
-width:82px;
-height:43px;
-background-color: #E8833A;
-margin-left: 18px;
-font-family: Roboto;
-font-weight: 400px;
-font-size: 20px;
-color: white;
-border-radius: 3px;
-border:none;
-cursor: pointer;
-}
-
-p{
-margin-left: 22px;
-font-family: Roboto;
-font-weight: 400px;
-font-size: 20px;
-color:#293845;
-}
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-family: 'Roboto';
+font-weight: 400;
+font-size: 24px;
+color: #293845;
 `

@@ -1,67 +1,41 @@
 import React from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 import { useState } from "react"
+import { useEffect } from 'react'
 
 
 export default function SelectSeat() {
 
+   const [seats, setSeats] = useState([])
    const [name, setName] = useState('')
    const [cpf, setCPF] = useState('')
+   //const [isAvailable, setIsAvailable] = [seats.isAvailable]
+
+
+useEffect(() => {
+   const promise = axios.get('https://mock-api.driven.com.br/api/v5/cineflex/showtimes/5/seats')
+
+   promise.then((res) => {
+       console.log('seats', res.data.seats)
+       setSeats(res.data.seats)
+   })
+
+   promise.catch((err) => {
+       console.log(err.response.data)
+   })
+}, [])
+
+if (seats.lenght === 0){
+return <div>Carregando...</div>
+}
 
    return (
+
       <>
-         <ContainerSeat>
-            <> <Seat>01</Seat>
-               <Seat>02</Seat>
-               <Seat>03</Seat>
-               <Seat>04</Seat>
-               <Seat>05</Seat>
-               <Seat>06</Seat>
-               <Seat>07</Seat>
-               <Seat>08</Seat>
-               <Seat>09</Seat>
-               <Seat>10</Seat>
-            </>
-            <Seat>01</Seat>
-            <Seat>02</Seat>
-            <Seat>03</Seat>
-            <Seat>04</Seat>
-            <Seat>05</Seat>
-            <Seat>06</Seat>
-            <Seat>07</Seat>
-            <Seat>08</Seat>
-            <Seat>09</Seat>
-            <Seat>10</Seat>
-            <Seat>01</Seat>
-            <Seat>02</Seat>
-            <Seat>03</Seat>
-            <Seat>04</Seat>
-            <Seat>05</Seat>
-            <Seat>06</Seat>
-            <Seat>07</Seat>
-            <Seat>08</Seat>
-            <Seat>09</Seat>
-            <Seat>10</Seat>
-            <Seat>01</Seat>
-            <Seat>02</Seat>
-            <Seat>03</Seat>
-            <Seat>04</Seat>
-            <Seat>05</Seat>
-            <Seat>06</Seat>
-            <Seat>07</Seat>
-            <Seat>08</Seat>
-            <Seat>09</Seat>
-            <Seat>10</Seat>
-            <Seat>01</Seat>
-            <Seat>02</Seat>
-            <Seat>03</Seat>
-            <Seat>04</Seat>
-            <Seat>05</Seat>
-            <Seat>06</Seat>
-            <Seat>07</Seat>
-            <Seat>08</Seat>
-            <Seat>09</Seat>
-            <Seat>10</Seat>
+        <Section><p>'Selecione o(s) assentos(s)'</p></Section>
+         <ContainerSeat>   
+         {seats.map((seat) => <Seat key={seat.id} >{seat.name}</Seat> )}
          </ContainerSeat>
 
          <ContainerSeatLabel>
@@ -150,7 +124,7 @@ color: black;
 const ContainerSeatLabel = styled.div`
 width: 100%;
 position: fixed;
-top: 350px;
+top: 380px;
 display: flex;
 justify-content: space-around;
 
@@ -171,7 +145,7 @@ color:#4E5A65;
 const ContainerCustomerData = styled.div`
 
 position: fixed;
-top: 420px;
+top: 450px;
 left: 24px;
 
 p{
@@ -217,4 +191,19 @@ font-size:18px;
 color: white;
 }
 
+`
+const Section = styled.div`
+
+width: 100%;
+height:110px;
+position: fixed;
+top: 67px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-family: 'Roboto';
+font-weight: 400;
+font-size: 24px;
+color: #293845;
 `
