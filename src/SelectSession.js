@@ -4,14 +4,15 @@ import styled from 'styled-components'
 import Session from './Session'
 import { useEffect } from 'react'
 import { useState } from "react"
+import { useParams } from 'react-router-dom'
 
 export default function SelectSession() {
 
    const [sessions, setSessions] = useState([])
+   const {idFilme} = useParams()
  
-
    useEffect(() => {
-      const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/2/showtimes`)
+      const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`)
 
       promise.then((res) => {
           setSessions(res.data.days)
@@ -21,7 +22,7 @@ export default function SelectSession() {
           console.log(err.response.data)
           alert(err.response.data)
       })
-  }, [])
+  }, [idFilme])
 
 if (sessions.lenght === 0){
   return <div>Carregando...</div>

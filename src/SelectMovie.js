@@ -2,41 +2,45 @@ import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { useState } from 'react' 
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function SelectMovie() {
 
    const [movies, setMovies] = useState([])
 
-
    useEffect(() => {
       const promise = axios.get('https://mock-api.driven.com.br/api/v5/cineflex/movies')
 
       promise.then((res) => {
-          console.log('movies', res.data)
-          setMovies(res.data)
+         console.log('movies', res.data)
+         setMovies(res.data)
       })
 
       promise.catch((err) => {
-          console.log(err.response.data)
-          alert(err.response.data)
+         console.log(err.response.data)
+         alert(err.response.data)
       })
-  }, [])
+   }, [])
 
-if (movies.lenght === 0){
-  return <div>Carregando...</div>
-}
-      
+   if (movies.lenght === 0) {
+      return <div>Carregando...</div>
+   }
+
    return (
       <>
-        <Section><p>Selecione o filme</p></Section>
+         <Section><p>Selecione o filme</p></Section>
          <ContainerMovie>
-         {movies.map((movie) => <Movie key={movie.id}><img src={movie.posterURL} alt={movie.title} /></Movie>)}    
+            {movies.map((movie) => (
+               <Movie key={movie.id}>
+                  <Link to={`/sessoes/${movie.id}`}>
+                  <img src={movie.posterURL} alt={movie.title} />
+                  </Link>
+               </Movie>))}
          </ContainerMovie>
       </>
    )
 }
-
 
 const ContainerMovie = styled.div`
 
@@ -59,6 +63,7 @@ justify-content: center;
 align-items: center;
 border-radius: 3px;
 box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+cursor: pointer;
 
 img{
 width:129px;

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { useState } from "react"
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 
 export default function SelectSeat() {
@@ -10,11 +11,14 @@ export default function SelectSeat() {
    const [seats, setSeats] = useState([])
    const [name, setName] = useState('')
    const [cpf, setCPF] = useState('')
+
+   const{idSessao} = useParams()
+
    //const [isAvailable, setIsAvailable] = [seats.isAvailable]
 
 
 useEffect(() => {
-   const promise = axios.get('https://mock-api.driven.com.br/api/v5/cineflex/showtimes/5/seats')
+   const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
 
    promise.then((res) => {
        console.log('seats', res.data.seats)
@@ -24,7 +28,7 @@ useEffect(() => {
    promise.catch((err) => {
        console.log(err.response.data)
    })
-}, [])
+}, [idSessao])
 
 if (seats.lenght === 0){
 return <div>Carregando...</div>

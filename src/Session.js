@@ -2,6 +2,8 @@ import styled from "styled-components"
 
 export default function Session({session}) {
 
+console.log('session', session)
+
 return (
     <SessionDiv>
 <p>{session.weekday} - {session.date}</p>

@@ -1,29 +1,25 @@
-//import { BrowseRouter, Routes, Route } from 'react-router-dom'
-//import { Link } from 'react-router-dom'
 import React from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalStyle'
 import SelectMovie from './SelectMovie'
-//import SelectSession from './SelectSession'
-//import SelectSeat from './SelectSeat'
-//import CompletedOrder from './CompletedOrder'
-//import { Route, useParams } from "react-router-dom";
-//import { useState } from "react"
+import SelectSession from './SelectSession'
+import SelectSeat from './SelectSeat'
+import CompletedOrder from './CompletedOrder'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 export default function App() {
 
     return (
-        <>
-            <GlobalStyle />
-            <Header>CINEFLEX</Header>
-
-            <SelectMovie />
-
-         {/*    <SelectSession />*/}
-             {/*<SelectSeat />*/}
-            {/*} <SelectMovie />*/}
-
-        </>
+            <BrowserRouter>
+                <GlobalStyle />
+                <Header>CINEFLEX</Header>
+                <Routes>
+                <Route path='/' element={<SelectMovie />}/>
+                <Route path='/sessoes/:idFilme' element={<SelectSession />} />
+                <Route path='/assentos/:idSessao' element={<SelectSeat />} />
+                <Route path='/sucesso' element={<CompletedOrder />} />
+                </Routes>
+            </BrowserRouter>
     )
 }
 
