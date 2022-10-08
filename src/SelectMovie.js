@@ -43,10 +43,8 @@ export default function SelectMovie() {
 }
 
 const ContainerMovie = styled.div`
-
 width: 100%;
-position: fixed;
-top: 177px;
+margin-top: 177px;
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
@@ -84,4 +82,6 @@ font-family: 'Roboto';
 font-weight: 400;
 font-size: 24px;
 color: #293845;
+background-color: white;
+z-index: 1;
 `

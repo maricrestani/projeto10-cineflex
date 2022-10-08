@@ -82,6 +82,8 @@ font-family: 'Roboto';
 font-weight: 700;
 font-size: 24px;
 color: #247A6B;
+background-color: white;
+z-index: 1;
 `
 
 /*

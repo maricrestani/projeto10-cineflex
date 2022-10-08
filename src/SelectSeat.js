@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import Footer from './Footer'
 import { useState } from "react"
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -37,7 +38,7 @@ return <div>Carregando...</div>
    return (
 
       <>
-        <Section><p>'Selecione o(s) assentos(s)'</p></Section>
+        <Section><p>Selecione o(s) assentos(s)</p></Section>
          <ContainerSeat>   
          {seats.map((seat) => <Seat key={seat.id} >{seat.name}</Seat> )}
          </ContainerSeat>
@@ -68,6 +69,7 @@ return <div>Carregando...</div>
 <ContainerBookButton>
 <button className='bookSeat'>Reservar assento(s)</button>
 </ContainerBookButton>
+<Footer id={idSessao/*name={movieInfo.title} img={movieInfo.posterURL}*/} />
 
       </>
    )
@@ -76,8 +78,8 @@ return <div>Carregando...</div>
 const ContainerSeat = styled.div`
 
 width: 100%;
-position: fixed;
-top: 150px;
+margin-top: 177px;
+margin-bottom: 117px;
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
@@ -210,4 +212,6 @@ font-family: 'Roboto';
 font-weight: 400;
 font-size: 24px;
 color: #293845;
+background-color: white;
+z-index: 1;
 `
