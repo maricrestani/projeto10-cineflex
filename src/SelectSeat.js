@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import Seat from './Seat'
 import Footer from './Footer'
 import { useState } from "react"
 import { useEffect } from 'react'
@@ -9,44 +10,57 @@ import { useParams } from 'react-router-dom'
 
 export default function SelectSeat() {
 
-   const [seats, setSeats] = useState([])
+   const { idSessao } = useParams()
+
+   const [movie, setMovie] = useState({
+      seats: [],
+      movie: { posterURL: '', title: '' },
+      day: { weekday: '' },
+      name: ''
+   })
+
+   const [selected, setSelected] = useState([])
+
    const [name, setName] = useState('')
    const [cpf, setCPF] = useState('')
 
-   const{idSessao} = useParams()
 
-   //const [isAvailable, setIsAvailable] = [seats.isAvailable]
+   useEffect(() => {
+      const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
 
+      promise.then((res) => {
+         setMovie(res.data)
+      })
 
-useEffect(() => {
-   const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
+      promise.catch((err) => {
+         console.log(err.response.data)
+      })
+   }, [idSessao])
 
-   promise.then((res) => {
-       console.log('seats', res.data.seats)
-       setSeats(res.data.seats)
-   })
-
-   promise.catch((err) => {
-       console.log(err.response.data)
-   })
-}, [idSessao])
-
-if (seats.lenght === 0){
-return <div>Carregando...</div>
-}
+   if (movie.lenght === 0) {
+      return <div>Carregando...</div>
+   }
 
    return (
-
       <>
-        <Section><p>Selecione o(s) assentos(s)</p></Section>
-         <ContainerSeat>   
-         {seats.map((seat) => <Seat key={seat.id} >{seat.name}</Seat> )}
+         <Section><p>Selecione o(s) assentos(s)</p></Section>
+     
+         <ContainerSeat>
+            {movie.seats.map((seat) => 
+            <Seat 
+            key={seat.id} 
+            id={seat.id} 
+            name={seat.name} 
+            isAvailable={seat.isAvailable} 
+            selected={selected} 
+            setSelected={setSelected} 
+            />)} 
          </ContainerSeat>
 
          <ContainerSeatLabel>
-            <SeatLabel> <Seat className='selected' /> Selecionado</SeatLabel>
-            <SeatLabel> <Seat className='available' />Disponível</SeatLabel>
-            <SeatLabel> <Seat className='unavailable' />Indisponível</SeatLabel>
+            <SeatLabel> <SeatStyle className='selected' /> Selecionado</SeatLabel>
+            <SeatLabel> <SeatStyle className='available' />Disponível</SeatLabel>
+            <SeatLabel> <SeatStyle className='unavailable' />Indisponível</SeatLabel>
          </ContainerSeatLabel>
 
          <ContainerCustomerData>
@@ -66,10 +80,10 @@ return <div>Carregando...</div>
             />
          </ContainerCustomerData>
 
-<ContainerBookButton>
-<button className='bookSeat'>Reservar assento(s)</button>
-</ContainerBookButton>
-<Footer id={idSessao/*name={movieInfo.title} img={movieInfo.posterURL}*/} />
+         <ContainerBookButton>
+            <button className='bookSeat'>Reservar assento(s)</button>
+         </ContainerBookButton>
+         <Footer name={movie.movie.title} img={movie.movie.posterURL} weekday={movie.day.weekday} time={movie.name} />
 
       </>
    )
@@ -86,10 +100,10 @@ justify-content: center;
 align-items: center;
 `
 
-const Seat = styled.div`
+const SeatStyle = styled.div`
 
-width: 26px;
-height: 26px;
+width: 24px;
+height: 24px;
 left: 24px;
 top: 158px;
 background-color: #C3CFD9;
@@ -107,20 +121,14 @@ font-size: 12px;
 color: black;
 
 &.selected {
-      width: 24px;
-      height: 24px;
       background-color: #1AAE9E;
       border: 1px solid #0E7D71;
     }
 &.available {
-      width: 24px;
-      height: 24px;
       background-color: #C3CFD9;
       border: 1px solid #7B8B99;
     }
 &.unavailable {
-      width: 24px;
-      height: 24px;
       background-color: #FBE192;
       border: 1px solid #F7C52B;
     }

@@ -1,16 +1,21 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
-export default function Session({session}) {
+export default function Session({ session }) {
 
-return (
-    <SessionDiv>
-<p>{session.weekday} - {session.date}</p>
-        <div>
-            <button>{session.showtimes[0].name}</button>
-            <button>{session.showtimes[1].name}</button>
-        </div>
-    </SessionDiv>
-)
+    return (
+        <SessionDiv>
+            <p>{session.weekday} - {session.date}</p>
+            <div>
+                <Link to={`/assentos/${session.showtimes[0].id}`}>
+                    <button>{session.showtimes[0].name}</button>
+                </Link>
+                <Link to={`/assentos/${session.showtimes[1].id}`}>
+                    <button>{session.showtimes[1].name}</button>
+                </Link>
+            </div>
+        </SessionDiv>
+    )
 }
 
 

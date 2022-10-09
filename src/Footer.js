@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export default function Footer(name, img) {
+export default function Footer({name, img, weekday, time}) {
 
     return (
         <ContainerFooter>
-            <div className="img"><img id={name} src={'https://image.tmdb.org/t/p/w500/aKx1ARwG55zZ0GpRvU2WrGrCG9o.jpg'} alt={name} /></div>
+            <div className="img"><img src={img} alt={name} /></div>
             <div>
-            <p>Mulan</p>
-            <p>Quinta-feira - 15:00</p>
+            <p>{name}</p>
+            <p>{weekday} {time}</p>
             </div>
         </ContainerFooter>
     )

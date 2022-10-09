@@ -13,6 +13,7 @@ export default function SelectSession() {
    const [movieInfo, setMovieInfo] = useState([])
    const { idFilme } = useParams()
 
+   console.log('session', sessions)
    console.log('movieInfo.posterURL e title', movieInfo.posterURL,movieInfo.title)
 
    useEffect(() => {
