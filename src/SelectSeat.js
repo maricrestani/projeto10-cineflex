@@ -5,11 +5,12 @@ import Seat from './Seat'
 import Footer from './Footer'
 import { useState } from "react"
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 
 export default function SelectSeat() {
 
+   const navigate = useNavigate()
    const { idSessao } = useParams()
 
    const [movie, setMovie] = useState({
@@ -23,7 +24,6 @@ export default function SelectSeat() {
 
    const [name, setName] = useState('')
    const [cpf, setCPF] = useState('')
-
 
    useEffect(() => {
       const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -40,6 +40,23 @@ export default function SelectSeat() {
    if (movie.lenght === 0) {
       return <div>Carregando...</div>
    }
+
+function submitData(e){
+e.preventDefault()
+
+const body = {ids: selected,	name: name,	cpf: cpf}
+console.log('data', body)
+const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', body)
+
+promise.then((res) => {
+   navigate('/sucesso');
+})
+
+promise.catch((err) => {
+   alert(err.message)
+})
+}
+
 
    return (
       <>
@@ -63,26 +80,32 @@ export default function SelectSeat() {
             <SeatLabel> <SeatStyle className='unavailable' />Indisponível</SeatLabel>
          </ContainerSeatLabel>
 
-         <ContainerCustomerData>
-            <p>Nome do comprador:</p>
+         <form onSubmit={submitData}>
+         <ContainerCustomerData>  
+         <p>Nome do comprador:</p>
             <input
                type="text"
-               placeholder="Digite seu nome ..."
+               placeholder="    Digite seu nome ..."
                value={name}
                onChange={(e) => setName(e.target.value)}
+               required
             />
             <p>CPF do comprador:</p>
             <input
                type="number"
-               placeholder="Digite seu CPF ..."
+               placeholder="    Digite seu CPF ..."
                value={cpf}
                onChange={(e) => setCPF(e.target.value)}
+               required
             />
          </ContainerCustomerData>
 
          <ContainerBookButton>
-            <button className='bookSeat'>Reservar assento(s)</button>
+            <button  onClick={() => submitData} type='submit' >Reservar assento(s)</button>
          </ContainerBookButton>
+
+         </form>
+
          <Footer name={movie.movie.title} img={movie.movie.posterURL} weekday={movie.day.weekday} time={movie.name} />
 
       </>
@@ -157,7 +180,6 @@ color:#4E5A65;
 `
 
 const ContainerCustomerData = styled.div`
-
 position: fixed;
 top: 450px;
 left: 24px;
@@ -182,6 +204,8 @@ border: 1px solid #AFAFAF;
 border-radius: 3px;
 
 }
+
+
 
 `
 const ContainerBookButton = styled.div`
