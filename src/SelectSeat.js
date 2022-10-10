@@ -142,8 +142,6 @@ width: 24px;
 height: 24px;
 left: 24px;
 top: 158px;
-background-color: #C3CFD9;
-border: 1px solid #808F9D;
 border-radius: 15px;
 display: flex;
 justify-content: center;
@@ -177,8 +175,8 @@ margin-top: 30px;
 bottom: 117px;
 display: flex;
 justify-content: space-around;
-
 `
+
 const SeatLabel = styled.div`
 display: flex;
 flex-direction: column;
@@ -193,7 +191,7 @@ color:#4E5A65;
 const ContainerCustomerData = styled.div`
 margin-top: 30px;
 margin-left: 24px;
-bottom: 117px;
+margin-bottom: 60px;
 
 p{
 font-family: Roboto;
@@ -216,8 +214,8 @@ border-radius: 3px;
 `
 const ContainerBookButton = styled.div`
 width: 100%;
-margin-top: 50px;
-bottom: 117px;
+margin-top: 20px;
+margin-bottom: 200px;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -233,6 +231,7 @@ font-family: Roboto;
 font-weight:400px;
 font-size:18px;
 color: white;
+cursor: pointer;
 }
 `
 const Section = styled.div`
