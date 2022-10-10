@@ -1,21 +1,20 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-export default function CompletedOrder() {
-
+export default function CompletedOrder({data}) {
 
   return (
     <>
       <Section><p>Pedido feito com sucesso!</p></Section>
       <ContainerOrder>
         <h1>Filme e sessão</h1>
-        <h2>Enola Holmes</h2>
-        <h2>24/06/2021 15:00</h2>
+        <h2>{data.title}</h2>
+        <h2>{data.day} {data.time}</h2>
         <h1>Ingressos</h1>
-        <h2>Assento 15</h2>
+        {data.seats.map((seat) => <h2 key={seat}>Assento {seat}</h2>)}
         <h1>Comprador</h1>
-        <h2>Nome: </h2>
-        <h2>CPF: </h2>
+        <h2>Nome: {data.buyer}</h2>
+        <h2>CPF: {data.cpf}</h2>
 
         <ContainerButton>
           <Link to={`/`}>
@@ -93,45 +92,3 @@ color: #247A6B;
 background-color: white;
 z-index: 1;
 `
-
-/*
-const Container = styled.div`
-display: flex;
-  width: 80%;
-  justify-content: space-between;
-  margin: 20px;
-
-button {
-  width: 90px;
-  font-family: 'Recursive';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #FFFFFF;
-  background: blue;
-  border-radius: 5px;
-  border: 1px solid blue;
-  padding:5px;
-  cursor: pointer;
-
-    &.error {
-      background-color: #FF3030;
-    border: #FF3030;
-    }
-    &.almost {
-    background-color: #FF922E;
-    border: #FF922E;
-    }
-    &.correct {
-    background-color: #2FBE34;
-    border: #2FBE34;
-    }
-
-}
-`
-*/

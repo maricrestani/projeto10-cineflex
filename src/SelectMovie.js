@@ -49,7 +49,6 @@ display: flex;
 flex-wrap: wrap;
 justify-content: center;
 align-items: center;
-//overflow: scroll;
 `
 const Movie = styled.div`
 
@@ -69,7 +68,6 @@ height:193px;
 }
 `
 const Section = styled.div`
-
 width: 100%;
 height:110px;
 position: fixed;

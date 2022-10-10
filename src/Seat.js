@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
-export default function Seat({id, name, isAvailable, selected, setSelected }) {
+export default function Seat({id, num, isAvailable, selected, setSelected }) {
 
     let [seatClicked, setSeatClicked] = useState(false)
-function isSelected(){
+
+    function isSelected(){
     if (!isAvailable) {
         alert('Esse assento não está disponível')
     }
@@ -21,8 +22,9 @@ function isSelected(){
         return
     }
 }   
+
     return (
-        <SeatStyle isAvailable={isAvailable} onClick={isSelected} seatClicked={seatClicked} >{name}</SeatStyle>
+        <SeatStyle isAvailable={isAvailable} onClick={isSelected} seatClicked={seatClicked} >{num}</SeatStyle>
     )
 }
 

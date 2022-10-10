@@ -9,6 +9,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 export default function App() {
 
+const data= ({title:'', day:'', time:'', seats:[], buyer:'', cpf:''})
+
     return (
             <BrowserRouter>
                 <GlobalStyle />
@@ -16,8 +18,8 @@ export default function App() {
                 <Routes>
                 <Route path='/' element={<SelectMovie />}/>
                 <Route path='/sessoes/:idFilme' element={<SelectSession />} />
-                <Route path='/assentos/:idSessao' element={<SelectSeat />} />
-                <Route path='/sucesso' element={<CompletedOrder />} />
+                <Route path='/assentos/:idSessao' element={<SelectSeat data={data}  />} />
+                <Route path='/sucesso' element={<CompletedOrder  data={data} />} />
                 </Routes>
             </BrowserRouter>
     )

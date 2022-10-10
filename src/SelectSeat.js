@@ -8,11 +8,11 @@ import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 
-export default function SelectSeat() {
+export default function SelectSeat({ data }) {
 
    const navigate = useNavigate()
    const { idSessao } = useParams()
-
+   
    const [movie, setMovie] = useState({
       seats: [],
       movie: { posterURL: '', title: '' },
@@ -21,9 +21,26 @@ export default function SelectSeat() {
    })
 
    const [selected, setSelected] = useState([])
-
    const [name, setName] = useState('')
    const [cpf, setCPF] = useState('')
+   let seatsNum = []
+
+   data.title = movie.movie.title
+   data.day = movie.day.date
+   data.time = movie.name
+   data.seats = seatsNum
+   data.buyer = name
+   data.cpf = cpf
+
+   for (let i = 0; i < movie.seats.length; i++) {
+      selected.filter((s) => {
+          if (s === movie.seats[i].id) {
+              seatsNum.push(movie.seats[i].name)
+              return true;
+          }
+          return false;
+      })
+  }
 
    useEffect(() => {
       const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -41,37 +58,35 @@ export default function SelectSeat() {
       return <div>Carregando...</div>
    }
 
-function submitData(e){
-e.preventDefault()
+   function submitData(e) {
+      e.preventDefault()
 
-const body = {ids: selected,	name: name,	cpf: cpf}
-console.log('data', body)
-const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', body)
+      const body = { ids: selected, name, cpf }
+      const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', body)
 
-promise.then((res) => {
-   navigate('/sucesso');
-})
+      promise.then((res) => {
+         navigate('/sucesso');
+      })
 
-promise.catch((err) => {
-   alert(err.message)
-})
-}
-
+      promise.catch((err) => {
+         alert(err.message)
+      })
+   }
 
    return (
       <>
          <Section><p>Selecione o(s) assentos(s)</p></Section>
-     
+
          <ContainerSeat>
-            {movie.seats.map((seat) => 
-            <Seat 
-            key={seat.id} 
-            id={seat.id} 
-            name={seat.name} 
-            isAvailable={seat.isAvailable} 
-            selected={selected} 
-            setSelected={setSelected} 
-            />)} 
+            {movie.seats.map((seat) =>
+               <Seat
+                  key={seat.id}
+                  id={seat.id}
+                  num={seat.name}
+                  isAvailable={seat.isAvailable}
+                  selected={selected}
+                  setSelected={setSelected}
+               />)}
          </ContainerSeat>
 
          <ContainerSeatLabel>
@@ -81,28 +96,28 @@ promise.catch((err) => {
          </ContainerSeatLabel>
 
          <form onSubmit={submitData}>
-         <ContainerCustomerData>  
-         <p>Nome do comprador:</p>
-            <input
-               type="text"
-               placeholder="    Digite seu nome ..."
-               value={name}
-               onChange={(e) => setName(e.target.value)}
-               required
-            />
-            <p>CPF do comprador:</p>
-            <input
-               type="number"
-               placeholder="    Digite seu CPF ..."
-               value={cpf}
-               onChange={(e) => setCPF(e.target.value)}
-               required
-            />
-         </ContainerCustomerData>
+            <ContainerCustomerData>
+               <p>Nome do comprador:</p>
+               <input
+                  type="text"
+                  placeholder="    Digite seu nome ..."
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+               />
+               <p>CPF do comprador:</p>
+               <input
+                  type="number"
+                  placeholder="    Digite seu CPF ..."
+                  value={cpf}
+                  onChange={(e) => setCPF(e.target.value)}
+                  required
+               />
+            </ContainerCustomerData>
 
-         <ContainerBookButton>
-            <button  onClick={() => submitData} type='submit' >Reservar assento(s)</button>
-         </ContainerBookButton>
+            <ContainerBookButton>
+               <button onClick={() => submitData} type='submit' >Reservar assento(s)</button>
+            </ContainerBookButton>
 
          </form>
 
@@ -113,10 +128,9 @@ promise.catch((err) => {
 }
 
 const ContainerSeat = styled.div`
-
 width: 100%;
 margin-top: 177px;
-margin-bottom: 117px;
+bottom: 117px;
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
@@ -124,7 +138,6 @@ align-items: center;
 `
 
 const SeatStyle = styled.div`
-
 width: 24px;
 height: 24px;
 left: 24px;
@@ -160,19 +173,17 @@ color: black;
 
 const ContainerSeatLabel = styled.div`
 width: 100%;
-position: fixed;
-top: 380px;
+margin-top: 30px;
+bottom: 117px;
 display: flex;
 justify-content: space-around;
 
 `
 const SeatLabel = styled.div`
-
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-
 font-family: Roboto;
 font-weight:400px;
 font-size:13px;
@@ -180,12 +191,12 @@ color:#4E5A65;
 `
 
 const ContainerCustomerData = styled.div`
-position: fixed;
-top: 450px;
-left: 24px;
+margin-top: 30px;
+margin-left: 24px;
+bottom: 117px;
 
 p{
-   font-family: Roboto;
+font-family: Roboto;
 font-weight:400px;
 font-size:18px;
 color:#293845;
@@ -193,8 +204,7 @@ margin: 8px 0px;
 }
 
 input{
-
-   width:327px;
+width:327px;
 height:51px;
 font-family: Roboto;
 font-weight:400px;
@@ -202,23 +212,19 @@ font-size:18px;
 font-style: italic;
 border: 1px solid #AFAFAF;
 border-radius: 3px;
-
 }
-
-
-
 `
 const ContainerBookButton = styled.div`
 width: 100%;
-position: fixed;
-top: 650px;
+margin-top: 50px;
+bottom: 117px;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 
 button{
-   width: 225px;
+width: 225px;
 height: 42px;
 background-color: #E8833A;
 border: #E8833A;
@@ -228,10 +234,8 @@ font-weight:400px;
 font-size:18px;
 color: white;
 }
-
 `
 const Section = styled.div`
-
 width: 100%;
 height:110px;
 position: fixed;
