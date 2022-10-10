@@ -30,9 +30,9 @@ export default function SelectMovie() {
    return (
       <>
          <Section><p>Selecione o filme</p></Section>
-         <ContainerMovie>
+         <ContainerMovie >
             {movies.map((movie) => (
-               <Movie key={movie.id}>
+               <Movie data-identifier="movie-outdoor" key={movie.id}>
                   <Link to={`/sessoes/${movie.id}`}>
                   <img src={movie.posterURL} alt={movie.title} />
                   </Link>

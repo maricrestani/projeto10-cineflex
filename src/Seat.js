@@ -24,7 +24,7 @@ export default function Seat({id, num, isAvailable, selected, setSelected }) {
 }   
 
     return (
-        <SeatStyle isAvailable={isAvailable} onClick={isSelected} seatClicked={seatClicked} >{num}</SeatStyle>
+        <SeatStyle data-identifier="seat" isAvailable={isAvailable} onClick={isSelected} seatClicked={seatClicked} >{num}</SeatStyle>
     )
 }
 

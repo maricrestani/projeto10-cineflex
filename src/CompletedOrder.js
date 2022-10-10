@@ -6,19 +6,19 @@ export default function CompletedOrder({data}) {
   return (
     <>
       <Section><p>Pedido feito com sucesso!</p></Section>
-      <ContainerOrder>
-        <h1>Filme e sessão</h1>
+      <ContainerOrder >
+        <h1 data-identifier="movie-session-infos-reserve-finished" >Filme e sessão</h1>
         <h2>{data.title}</h2>
         <h2>{data.day} {data.time}</h2>
-        <h1>Ingressos</h1>
+        <h1 data-identifier="seat-infos-reserve-finished">Ingressos</h1>
         {data.seats.map((seat) => <h2 key={seat}>Assento {seat}</h2>)}
-        <h1>Comprador</h1>
+        <h1 data-identifier="buyer-infos-reserve-finished">Comprador</h1>
         <h2>Nome: {data.buyer}</h2>
         <h2>CPF: {data.cpf}</h2>
 
         <ContainerButton>
           <Link to={`/`}>
-          <button>Voltar para Home</button>
+          <button data-identifier="back-to-home-btn">Voltar para Home</button>
           </Link>
         </ContainerButton>
 

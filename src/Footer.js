@@ -4,8 +4,8 @@ export default function Footer({name, img, weekday, time}) {
 
     return (
         <ContainerFooter>
-            <div className="img"><img src={img} alt={name} /></div>
-            <div>
+            <div data-identifier="movie-img-preview" className="img"><img src={img} alt={name} /></div>
+            <div data-identifier="movie-and-session-infos-preview">
             <p>{name}</p>
             <p>{weekday} {time}</p>
             </div>

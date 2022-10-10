@@ -90,15 +90,16 @@ export default function SelectSeat({ data }) {
          </ContainerSeat>
 
          <ContainerSeatLabel>
-            <SeatLabel> <SeatStyle className='selected' /> Selecionado</SeatLabel>
-            <SeatLabel> <SeatStyle className='available' />Disponível</SeatLabel>
-            <SeatLabel> <SeatStyle className='unavailable' />Indisponível</SeatLabel>
+            <SeatLabel> <SeatStyle data-identifier="seat-selected-subtitle" className='selected' /> Selecionado</SeatLabel>
+            <SeatLabel> <SeatStyle data-identifier="seat-available-subtitle" className='available' />Disponível</SeatLabel>
+            <SeatLabel> <SeatStyle data-identifier="seat-unavailable-subtitle" className='unavailable' />Indisponível</SeatLabel>
          </ContainerSeatLabel>
 
          <form onSubmit={submitData}>
             <ContainerCustomerData>
                <p>Nome do comprador:</p>
                <input
+               data-identifier="buyer-name-input"
                   type="text"
                   placeholder="    Digite seu nome ..."
                   value={name}
@@ -107,6 +108,7 @@ export default function SelectSeat({ data }) {
                />
                <p>CPF do comprador:</p>
                <input
+               data-identifier="buyer-cpf-input"
                   type="number"
                   placeholder="    Digite seu CPF ..."
                   value={cpf}
@@ -116,7 +118,7 @@ export default function SelectSeat({ data }) {
             </ContainerCustomerData>
 
             <ContainerBookButton>
-               <button onClick={() => submitData} type='submit' >Reservar assento(s)</button>
+               <button data-identifier="reservation-btn" onClick={() => submitData} type='submit' >Reservar assento(s)</button>
             </ContainerBookButton>
 
          </form>
